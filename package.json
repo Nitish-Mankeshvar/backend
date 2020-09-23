@@ -1,0 +1,20 @@
+{
+  "name": "gamers_api",
+  "version": "1.0.0",
+  "description": "Information about gamers, their achievement, favorite games and more information all around the world. This is gamers' digital gaming card!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "gaming",
+    "gamers",
+    "video-games",
+    "gaming-forever"
+  ],
+  "author": "Nitish Mankeshvar",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
