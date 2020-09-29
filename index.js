@@ -11,13 +11,23 @@
 
 const express = require("express");
 const app = express();
+const dotenv = require("dotenv");
+
+// connecting to database
+const db = require("./utils/db");
+
+//Loading env files
+dotenv.config({ path: "./config/config.env" });
+
+// Loading all the routes
+const gamerRoutes = require("./routes/gamerRoutes");
+app.use("/api/v1/gamer", gamerRoutes);
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.status(200).json({
-    res: "hi",
-  });
-});
-
-app.listen(5000, () => console.log("server started!"));
+db()
+  .then((db) => {
+    console.log("connected to database");
+    app.listen(5000, () => console.log("server started!"));
+  })
+  .catch((err) => console.log(err));

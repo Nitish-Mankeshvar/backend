@@ -14,7 +14,7 @@ exports.getGamers = (req, res, next) => {
 exports.getSingleGamer = (req, res, next) => {
   res.status(200).json({
     success: true,
-    data: "Get specific gamer with his id",
+    data: `Get specific gamer with his id ${req.params.id}`,
   });
 };
 
