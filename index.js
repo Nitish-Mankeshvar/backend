@@ -22,6 +22,6 @@ app.use("/api/v1/gamer", gamerRoutes);
 db()
   .then((db) => {
     console.log("connected to database");
-    app.listen(5000, () => console.log("server started!"));
+    app.listen(process.env.PORT, () => console.log("server started!"));
   })
   .catch((err) => console.log(err));

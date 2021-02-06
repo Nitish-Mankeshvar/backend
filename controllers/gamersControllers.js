@@ -1,4 +1,7 @@
 const GamerModel = require("../models/Gamer");
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 // MEHTOD         : PUT
 // ROUTE          : api/v1/gamers/:id
