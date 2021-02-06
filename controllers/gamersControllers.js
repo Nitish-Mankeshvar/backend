@@ -1,7 +1,5 @@
 const GamerModel = require("../models/Gamer");
-const multer = require("multer");
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const path = require("path");
 
 // MEHTOD         : PUT
 // ROUTE          : api/v1/gamers/:id
@@ -98,6 +96,56 @@ exports.updateGamer = async (req, res, next) => {
     res.status(404).json({
       success: false,
       data: "error!",
+    });
+  }
+};
+
+// MEHTOD         : PUT
+// ROUTE          : api/v1/gamers/:gamerId/uploadPhoto
+// AUTHENTICATION : public
+exports.profilePhotoUpload = async (req, res, next) => {
+  try {
+    const gamer = await GamerModel.findById(req.params.gamerId);
+
+    if (!gamer) {
+      throw new Error("no user found");
+      return;
+    }
+
+    if (!req.files) {
+      throw new Error("please upload an image file");
+      return;
+    }
+    console.log(req.files);
+    const file = req.files.file;
+
+    if (!file.mimetype.startsWith("image")) {
+      throw new Error("please upload a an image");
+      return;
+    }
+
+    // create custom file name
+    file.name = `profile_${gamer._id}${path.parse(file.name).ext}`;
+
+    file.mv(`./public/uploads/${file.name}`, async (err) => {
+      if (err) {
+        console.error(err);
+        throw new Error("some error");
+      }
+
+      await GamerModel.findByIdAndUpdate(req.params.gamerId, {
+        photo: file.name,
+      });
+    });
+
+    res.status(200).json({
+      success: true,
+      data: file.name,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      data: error.message,
     });
   }
 };

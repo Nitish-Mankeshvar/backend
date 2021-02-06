@@ -27,9 +27,9 @@ const gamerSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please type your address"],
   },
-  profileImage: {
-    data: Buffer,
-    contentType: String,
+  photo: {
+    type: String,
+    default: "no-photo.jpg",
   },
   createdAt: {
     type: Date,
